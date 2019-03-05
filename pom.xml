@@ -14,11 +14,11 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <junit-jupiter.version>5.4.0</junit-jupiter.version>
 
         <!-- Dependencies -->
         <vaadin.version>13.0-SNAPSHOT</vaadin.version>
         <junit-platform.version>1.4.0</junit-platform.version>
+        <junit-jupiter.version>5.4.0</junit-jupiter.version>
     </properties>
 
     <parent>
@@ -66,6 +66,13 @@
                 <version>${vaadin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-testbench-bom-vxx</artifactId>
+                <version>7.0.0-SNAPSHOT</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.junit.platform</groupId>
@@ -120,7 +127,7 @@
 
         <dependency>
             <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-testbench</artifactId>
+            <artifactId>vaadin-testbench-core</artifactId>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -130,10 +137,27 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <version>5.4.0</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-testbench-tb-pageobject-vaadin-vxx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-testbench-tb-shared-generic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-testbench-tb-shared-vxx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-testbench-junit5-servlet-container-impl-none</artifactId>
         </dependency>
     </dependencies>
 
@@ -168,19 +192,15 @@
 
                 <executions>
                     <execution>
-                        <phase>verify</phase>
+                        <phase>integration-test</phase>
                         <goals>
                             <goal>launch</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
+                    <classNamePatterns>.+IT</classNamePatterns>
                     <isolation>NONE</isolation>
-                    <trimStackTrace>false</trimStackTrace>
-                    <systemPropertyVariables>
-                        <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
-                        <com.vaadin.testbench.Parameters.runLocally>chrome</com.vaadin.testbench.Parameters.runLocally>
-                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
