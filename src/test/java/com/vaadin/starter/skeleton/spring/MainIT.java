@@ -1,25 +1,23 @@
 package com.vaadin.starter.skeleton.spring;
 
-import com.vaadin.flow.component.button.testbench.ButtonElement;
-import com.vaadin.flow.component.combobox.testbench.ComboBoxElement;
-import com.vaadin.flow.component.notification.testbench.NotificationElement;
-import com.vaadin.testbench.addons.junit5.extensions.unittest.VaadinWebUnitTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import com.vaadin.flow.component.combobox.testbench.ComboBoxElement;
+import com.vaadin.testbench.addons.junit5.extensions.container.SpringBootConf;
+import com.vaadin.testbench.addons.junit5.extensions.unittest.VaadinWebUnitTest;
+import com.vaadin.testbench.addons.junit5.pageobject.WithID;
 
 @VaadinWebUnitTest
+@SpringBootConf(source = Application.class)
 public class MainIT {
 
-    @Test
-    @VaadinWebUnitTest
-    public void testFormSubmission(SkeletonVaadinPageObject po) {
-        po.loadPage();
+  @VaadinWebUnitTest
+  void testFormSubmission(SkeletonVaadinPageObject po) {
+    po.loadPage();
+    final WithID<ComboBoxElement> comboBox = po.comboBox();
 
-        ComboBoxElement element = po.comboBox().id("someId");
-        po.getTestCase().$(ButtonElement.class).first().click();
+    po.button().click();
 
-
-        Assertions.assertEquals("Form submitted",
-                po.getTestCase().$(NotificationElement.class).first().getText());
-    }
+    Assertions.assertEquals("Button was clicked" ,
+                            po.notification().getText());
+  }
 }
