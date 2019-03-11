@@ -29,6 +29,7 @@
     <junit-jupiter.version>5.4.0</junit-jupiter.version>
 
     <vaadin-testbench.version>7.0.0-SNAPSHOT</vaadin-testbench.version>
+<!--    <springboot.version>2.1.3.RELEASE</springboot.version>-->
   </properties>
 
 
@@ -118,11 +119,11 @@
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-spring-boot-starter</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <optional>true</optional>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-devtools</artifactId>-->
+<!--      <optional>true</optional>-->
+<!--    </dependency>-->
 
 
     <dependency>
@@ -176,13 +177,7 @@
 
     <dependency>
       <groupId>com.vaadin</groupId>
-      <artifactId>vaadin-testbench-junit5-runtime-impl-springboot</artifactId>
-      <version>${vaadin-testbench.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.vaadin</groupId>
-      <artifactId>vaadin-testbench-junit5-runtime-impl-springboot-v02</artifactId>
+      <artifactId>vaadin-testbench-junit5-runtime-impl-none</artifactId>
       <version>${vaadin-testbench.version}</version>
       <scope>test</scope>
     </dependency>
@@ -193,10 +188,26 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+<!--        <version>${springboot.version}</version>-->
+        <executions>
+          <execution>
+            <id>pre-integration-test</id>
+            <goals>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>post-integration-test</id>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <maxAttempts>120</maxAttempts>
         </configuration>
       </plugin>
+
 
       <plugin>
         <groupId>de.sormuras.junit</groupId>
