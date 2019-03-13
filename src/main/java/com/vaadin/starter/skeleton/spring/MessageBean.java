@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 public class MessageBean {
 
   public String getMessage() {
-    return "Button was clicked";
+    return "Form submitted";
   }
 }

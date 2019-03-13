@@ -14,6 +14,6 @@ public class MainViewIT {
     po.loadPage();
     po.button().click();
 
-    assertEquals("Button was clicked", po.notification().getText());
+    assertEquals("Form submitted", po.notification().getText());
   }
 }
